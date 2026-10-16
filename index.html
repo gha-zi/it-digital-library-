@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberMatrix | الأرشيف التقني والهندسي</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #31103d 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.12);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        html.light {
+            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.9);
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --accent-color: #0284c7;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: 0.3s ease;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            border-radius: 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 5%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 25px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+            filter: drop-shadow(0 0 10px var(--accent-color));
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 10px 40px 10px 15px;
+            border-radius: 30px;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+            width: 220px;
+            transition: 0.3s;
+        }
+
+        .search-box input:focus {
+            width: 280px;
+            border-color: var(--accent-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle-btn, .cart-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .theme-toggle-btn:hover, .cart-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+
+        .cart-count {
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 140px auto 40px;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #38bdf8, #a855f7, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #a855f7;
+        }
+
+        .categories-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .book-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+        }
+
+        .book-img-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .book-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s ease;
+        }
+
+        .book-card:hover .book-img-container img {
+            transform: scale(1.05);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(168, 85, 247, 0.4);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        .book-info h3 {
+            font-size: 1.12rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .book-author {
+            font-size: 0.88rem;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .book-author:hover {
+            text-decoration: underline;
+        }
+
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            color: #facc15;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #34d399;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+
+        /* Modal Details */
+        .details-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .details-modal.active {
+            display: flex;
+        }
+
+        .details-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
+        }
+
+        .details-content h2 {
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .details-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .close-details {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* Cart Drawer & Payment */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            transition: 0.4s ease;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .cart-modal.active {
+            left: 0;
+        }
+
+        .cart-drawer {
+            width: 420px;
+            max-width: 90%;
+            height: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border-left: 1px solid var(--glass-border);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 250px;
+        }
+
+        .cart-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .payment-section {
+            margin-top: 15px;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 15px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .pay-option {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .pay-option.selected {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* Footer & Socials */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="glass-panel">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-cube"></i>
+                CyberMatrix
+            </a>
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في الأرشيف..." onkeyup="filterBooks()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="تبديل الوضع">
+                    <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+                </button>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>CyberMatrix Knowledge Base</h1>
+        <p>الأرشيف التقني والهندسي المتقدم لاستكشاف أحدث المراجع في الحوسبة السحابية، إدارة المشاريع، والذكاء الاصطناعي.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="section-title">
+            <i class="fa-solid fa-book-bookmark"></i>
+            المراجع والأبحاث المتاحة
+        </div>
+
+        <div class="categories-filter">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">الكل</button>
+            <button class="filter-btn" onclick="filterCategory('cloud', this)">الحوسبة السحابية</button>
+            <button class="filter-btn" onclick="filterCategory('pm', this)">إدارة المشاريع التقنية</button>
+            <button class="filter-btn" onclick="filterCategory('km', this)">إدارة المعرفة</button>
+            <button class="filter-btn" onclick="filterCategory('multimedia', this)">الوسائط المتعددة</button>
+            <button class="filter-btn" onclick="filterCategory('programming', this)">البرمجة</button>
+            <button class="filter-btn" onclick="filterCategory('networks', this)">الشبكات</button>
+            <button class="filter-btn" onclick="filterCategory('ai', this)">الذكاء الاصطناعي</button>
+            <button class="filter-btn" onclick="filterCategory('security', this)">الأمن السيبراني</button>
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- Cloud Computing 1 -->
+            <div class="book-card glass-panel" data-category="cloud" data-title="هندسة الحوسبة السحابية والبنى التحتية الموزعة">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">الحوسبة السحابية</span>
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>هندسة الحوسبة السحابية والبنى الموزعة</h3>
+                        <p class="book-author" onclick="showBookDetails('هندسة الحوسبة السحابية والبنى الموزعة', 'د. ماهر النجار', '4.9', 'دليلك الشامل لفهم خدمات السحابة (AWS/Azure)، النشر الافتراضي، وإدارة الحاويات بفعالية.')">د. ماهر النجار</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                            <div class="price">$22.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('هندسة الحوسبة السحابية والبنى الموزعة', 22.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- IT Project Management 1 -->
+            <div class="book-card glass-panel" data-category="pm" data-title="إدارة المشاريع التقنية ومنهجيات Agile">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">إدارة المشاريع</span>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>إدارة المشاريع التقنية ومنهجيات Agile</h3>
+                        <p class="book-author" onclick="showBookDetails('إدارة المشاريع التقنية ومنهجيات Agile', 'م. غازي سليمان', '5.0', 'منهجيات متقدمة لإدارة الفرق البرمجية، قياس الأداء، وتخطيط دورة حياة البرمجيات بنجاح تام.')">م. غازي سليمان</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                            <div class="price">$19.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('إدارة المشاريع التقنية ومنهجيات Agile', 19.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- Knowledge Management 1 -->
+            <div class="book-card glass-panel" data-category="km" data-title="إدارة المعرفة وأنظمة دعم القرار المؤسسي">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">إدارة المعرفة</span>
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>إدارة المعرفة وأنظمة دعم القرار المؤسسي</h3>
+                        <p class="book-author" onclick="showBookDetails('إدارة المعرفة وأنظمة دعم القرار المؤسسي', 'د. ندى عبدالرحيم', '4.8', 'استراتيجيات تحويل البيانات المؤسسية إلى معرفة قابلة للاستخدام في اتخاذ القرارات الاستراتيجية.')">د. ندى عبدالرحيم</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                            <div class="price">$18.50</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('إدارة المعرفة وأنظمة دعم القرار المؤسسي', 18.50)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- Multimedia 1 -->
+            <div class="book-card glass-panel" data-category="multimedia" data-title="تقنيات الوسائط المتعددة وتطوير الواجهات التفاعلية">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">الوسائط المتعددة</span>
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>تقنيات الوسائط المتعددة وتطوير الواجهات</h3>
+                        <p class="book-author" onclick="showBookDetails('تقنيات الوسائط المتعددة وتطوير الواجهات', 'م. حسام الدين', '4.7', 'أسس هندسة الصوت، الفيديو الرقمي، وتصميم تجربة المستخدم التفاعلية عبر منصات الويب الحديثة.')">م. حسام الدين</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                            <div class="price">$16.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('تقنيات الوسائط المتعددة وتطوير الواجهات', 16.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- Programming -->
+            <div class="book-card glass-panel" data-category="programming" data-title="أساسيات البرمجة والهندسة البرمجية">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">برمجة</span>
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>أساسيات البرمجة والهندسة البرمجية</h3>
+                        <p class="book-author" onclick="showBookDetails('أساسيات البرمجة والهندسة البرمجية', 'د. أحمد السيد', '4.9', 'يغطي هذا المرجع أساسيات بناء الخوارزميات، هياكل البيانات، ومفاهيم الهندسة البرمجية.')">د. أحمد السيد</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                            <div class="price">$14.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('أساسيات البرمجة والهندسة البرمجية', 14.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- Networks -->
+            <div class="book-card glass-panel" data-category="networks" data-title="هندسة شبكات الحاسوب وبناء الراوترات">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">شبكات</span>
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>هندسة شبكات الحاسوب وبناء الراوترات</h3>
+                        <p class="book-author" onclick="showBookDetails('هندسة شبكات الحاسوب وبناء الراوترات', 'م. غازي سليمان', '4.8', 'دراسة تطبيقية متقدمة في بروتوكولات التوجيه (OSPF) وإعدادات الشبكات.')">م. غازي سليمان</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                            <div class="price">$19.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('هندسة شبكات الحاسوب وبناء الراوترات', 19.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- AI -->
+            <div class="book-card glass-panel" data-category="ai" data-title="الذكاء الاصطناعي وتعلم الآلة التطبيقي">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">ذكاء اصطناعي</span>
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>الذكاء الاصطناعي وتعلم الآلة التطبيقي</h3>
+                        <p class="book-author" onclick="showBookDetails('الذكاء الاصطناعي وتعلم الآلة التطبيقي', 'د. ساره عبدالله', '5.0', 'دليل شامل حول الخوارزميات العميقة، الشبكات العصبية، وتحليل البيانات الضخمة.')">د. ساره عبدالله</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                            <div class="price">$24.99</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('الذكاء الاصطناعي وتعلم الآلة التطبيقي', 24.99)">إضافة للأرشيف</button>
+            </div>
+
+            <!-- Security -->
+            <div class="book-card glass-panel" data-category="security" data-title="أساسيات الأمن السيبراني واختبار الاختراق">
+                <div>
+                    <div class="book-img-container">
+                        <span class="book-badge">أمن سيبراني</span>
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80" alt="كتاب">
+                    </div>
+                    <div class="book-info">
+                        <h3>أساسيات الأمن السيبراني واختبار الاختراق</h3>
+                        <p class="book-author" onclick="showBookDetails('أساسيات الأمن السيبراني واختبار الاختراق', 'خالد الفيتوري', '4.7', 'تحليل الثغرات الأمنية، استراتيجيات الدفاع السيبراني، وأساليب التصدي للهجمات.')">خالد الفيتوري</p>
+                        <div class="book-meta">
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                            <div class="price">$18.50</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('أساسيات الأمن السيبراني واختبار الاختراق', 18.50)">إضافة للأرشيف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Details Modal -->
+    <div class="details-modal" id="detailsModal" onclick="closeDetailsOutside(event)">
+        <div class="details-content">
+            <button class="close-details" onclick="closeDetails()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="modalTitle">عنوان الكتاب</h2>
+            <p><strong>المؤلف:</strong> <span id="modalAuthor">اسم المؤلف</span></p>
+            <p><strong>التقييم:</strong> ⭐ <span id="modalRating">0.0</span></p>
+            <hr style="border-color: var(--glass-border); margin: 15px 0;">
+            <p><strong>عن الكتاب:</strong></p>
+            <p id="modalDesc">تفاصيل وملخص الكتاب...</p>
+        </div>
+    </div>
+
+    <!-- Cart Drawer & Payment -->
+    <div class="cart-modal" id="cartModal" onclick="outsideCart(event)">
+        <div class="cart-drawer">
+            <div class="cart-header">
+                <h2><i class="fa-solid fa-cart-shopping"></i> سلة الأرشيف</h2>
+                <button class="close-cart" onclick="toggleCart()" style="background:none; border:none; color:var(--text-color); font-size:1.2rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">السلة فارغة</p>
+            </div>
+            <div class="payment-section">
+                <p style="font-weight: 700; margin-bottom: 8px; font-size: 0.95rem;">اختر وسيلة الدفع الافتراضية:</p>
+                <div class="payment-options">
+                    <div class="pay-option selected" onclick="selectPayment(this, 'بطاقة ائتمانية')">بطاقة ائتمانية</div>
+                    <div class="pay-option" onclick="selectPayment(this, 'تحويل بنكي رقمي')">تحويل بنكي رقمي</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 12px; font-size: 1.1rem;">
+                    <span>الإجمالي:</span>
+                    <span id="cartTotal" style="color: #34d399;">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">إتمام الطلب الافتراضي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer & Socials -->
+    <footer>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank" title="Facebook: Ghazi Mohammed"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://instagram.com/Gha_zi24" target="_blank" title="Instagram: Gha_zi24"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <p>جميع الحقوق محفوظة &copy; 2026 | تصميم وتطوير المهندس <span>غازي سليمان</span></p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let selectedPaymentMethod = 'بطاقة ائتمانية';
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+            }
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        function outsideCart(e) {
+            if (e.target === document.getElementById('cartModal')) toggleCart();
+        }
+
+        function selectPayment(element, method) {
+            document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPaymentMethod = method;
+        }
+
+        function showBookDetails(title, author, rating, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalAuthor').innerText = author;
+            document.getElementById('modalRating').innerText = rating;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('detailsModal').classList.add('active');
+        }
+
+        function closeDetails() {
+            document.getElementById('detailsModal').classList.remove('active');
+        }
+
+        function closeDetailsOutside(e) {
+            if (e.target === document.getElementById('detailsModal')) closeDetails();
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countEl = document.getElementById('cartCount');
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+            countEl.innerText = cart.length;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 20px;">السلة فارغة</p>';
+                totalEl.innerText = '$0.00';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <h4 style="font-size:0.88rem;">${item.title}</h4>
+                            <span style="color:#34d399; font-size:0.8rem;">$${item.price}</span>
+                        </div>
+                        <button onclick="cart.splice(${index},1); updateCartUI();" style="background:none; border:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            totalEl.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.book-card').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.book-card').forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                card.style.display = title.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        function checkout() {
+            if (cart.length === 0) { alert('السلة فارغة'); return; }
+            alert(`تم تأكيد الطلب بنجاح عبر (${selectedPaymentMethod}) في الأرشيف التقني!`);
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+    </script>
+</body>
+  </html>
+                  
